@@ -1,0 +1,7 @@
+# depslib dependency file v1.0
+1523320245 source:c:\users\samsc\documents\git\faculdade\analisador-aminoacidos\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<locale.h>
+

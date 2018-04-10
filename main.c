@@ -2,11 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-int condicao = 0;
-
-int verificarInicio(char *codon);
-void inverte(char* vetor,int tamanho);
-void verificaAminoacido(char* vetorBase);
+#include "genome.h"
 
 int main()
 {
@@ -16,27 +12,23 @@ int main()
     int countInitGenome = 0;
     int ordem = 1;
     int countPreencherVetor = 0;
-    int tamanhoVetor = finishGenome - initGenome;
-    int contadorCodon = 0;
-    int initGenomeDigt = 22983;
-    int finishGenomeDigt = 25781;
-    int positivo = 0;
-
-    char vetorGenome[tamanhoVetor];
-    char codon[3];
+    int tamanhoVetor = 0;
 
     char url[]="Complete_Genome.txt";
 	char ch;
 	FILE *arq;
 
 	printf("Digite o inicio do Genome:\n");
-	scanf("%d",&initGenomeDigt);
+	scanf("%d",&initGenome);
 	printf("Digite o fim do Genome:\n");
-	scanf("%d",&finishGenomeDigt);
+	scanf("%d",&finishGenome);
 	printf("Digite 1 para positivo e 0 para negativo: \n");
-	scanf("%d",&positivo);
+	scanf("%d",&ordem);
 
 	system("pause");
+
+	tamanhoVetor = finishGenome - initGenome;
+    char vetorGenome[tamanhoVetor];
 
 	arq = fopen(url, "r");
 	if(arq == NULL){
@@ -52,13 +44,9 @@ int main()
 	    }
 	}
 
+    if(ordem == 0)inverte(vetorGenome, tamanhoVetor);
+
     percorrerString(vetorGenome,tamanhoVetor);
-
-    inverte(vetorGenome, tamanhoVetor);
-
-	/*for(x = 0; x < tamanhoVetor; x++){
-        //printf("%c", vetorGenome[x]);
-	}*/
 
 	fclose(arq);
     return 0;
@@ -72,7 +60,7 @@ void imprimirString(char* string, int tamanho){
 }
 
 void percorrerString(char* string, int tamanho){
-    int x, y=0, condicao = 0;
+    int x, y=0;
     char codon[3];
 	for(x = 0; x < tamanho; x++){
         if(y == 3){
@@ -91,41 +79,33 @@ void percorrerString(char* string, int tamanho){
 
 void inverte(char* vetor,int tamanho){
     int x,y;
-    int tmp;
+    int aux;
 
     for(x = 0, y = tamanho - 1; x<y; ++x,--y){
-      tmp = *(vetor + y);
-      *(vetor + y) = *(vetor + x);
-      *(vetor + x) = tmp;
+      aux = vetor[y];
+      vetor[y] = vetor[x];
+      vetor[x] = aux;
     }
-    return;
 }
 
-int verificarInicio(char* codon){
+void verificarInicio(char* codon){
     if((strcmp(codon,"ATG") == 0)&& condicao == 0 ){
         printf("\n INICIO\n");
         verificaAminoacido(codon);
         condicao = 1;
-        return 1;
     }
     if(condicao == 1){
 
         printf("%s ",codon);
         verificaAminoacido(codon);
         verificarFim(codon);
-        return 0;
-    }else{
-        return 0;
     }
 }
 
-int verificarFim(char* codon){
+void verificarFim(char* codon){
     if((strcmp(codon,"TGA") == 0)||(strcmp(codon,"TAA") == 0)||(strcmp(codon,"TAG") == 0)){
         printf("FIM \n");
         condicao = 0;
-        return 1;
-    }else{
-        return 0;
     }
 }
 

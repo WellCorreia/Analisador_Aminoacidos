@@ -28,6 +28,7 @@ int main()
 	printf("Digite 1 para positivo e 0 para negativo: \n");
 	scanf("%d",&ordem);
 
+
 	tamanhoVetor = (finishGenome+3) - initGenome;
     char vetorGenome[tamanhoVetor];
 
@@ -48,11 +49,12 @@ int main()
 
 
     if(ordem == 0){
-            inverte(str, tamanhoVetor);
+            inverte(vetorGenome, tamanhoVetor);
             //trocarBase(vetorGenome, tamanhoVetor);
     }
 
-    imprimirString(str,11);
+    percorrerString(vetorGenome,tamanhoVetor);
+
 	fclose(arq);
     return 0;
 }
@@ -70,7 +72,7 @@ void percorrerString(char* string, int tamanho){
 	for(x = 0; x < tamanho; x++){
         if(y == 3){
             codon[y]= 0;
-            printf("%s",codon);
+	    printf("%s",codon);
             //verificarInicio(codon);
             y = 0;
         }

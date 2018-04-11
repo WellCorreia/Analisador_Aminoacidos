@@ -4,6 +4,7 @@
 #include <locale.h>
 #include "genome.h"
 
+
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -13,10 +14,12 @@ int main()
     int ordem = 1;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
+    char str[] = "Ola Mundo!";
 
     char url[]="Complete_Genome.txt";
 	char ch;
 	FILE *arq;
+
 
 	printf("Digite o inicio do Genome:\n");
 	scanf("%d",&initGenome);
@@ -25,9 +28,7 @@ int main()
 	printf("Digite 1 para positivo e 0 para negativo: \n");
 	scanf("%d",&ordem);
 
-	system("pause");
-
-	tamanhoVetor = finishGenome - initGenome;
+	tamanhoVetor = (finishGenome+3) - initGenome;
     char vetorGenome[tamanhoVetor];
 
 	arq = fopen(url, "r");
@@ -37,17 +38,21 @@ int main()
 	    while(ch != EOF && countInitGenome != finishGenome){
             countInitGenome++;
             ch = fgetc(arq);
-            if(countInitGenome >= initGenome){
+	    if(ch!='A' && ch!= 'T' && ch!= 'G' && ch!='C')countInitGenome--;
+            else if(countInitGenome >= initGenome){
                 vetorGenome[countPreencherVetor] = ch;
                 countPreencherVetor++;
             }
 	    }
 	}
 
-    if(ordem == 0)inverte(vetorGenome, tamanhoVetor);
 
-    percorrerString(vetorGenome,tamanhoVetor);
+    if(ordem == 0){
+            inverte(str, tamanhoVetor);
+            //trocarBase(vetorGenome, tamanhoVetor);
+    }
 
+    imprimirString(str,11);
 	fclose(arq);
     return 0;
 }
@@ -65,7 +70,8 @@ void percorrerString(char* string, int tamanho){
 	for(x = 0; x < tamanho; x++){
         if(y == 3){
             codon[y]= 0;
-            verificarInicio(codon);
+            printf("%s",codon);
+            //verificarInicio(codon);
             y = 0;
         }
         if(string[x]=='\n'){
@@ -76,7 +82,6 @@ void percorrerString(char* string, int tamanho){
         y++;
 	}
 }
-
 void inverte(char* vetor,int tamanho){
     int x,y;
     int aux;
@@ -89,7 +94,7 @@ void inverte(char* vetor,int tamanho){
 }
 
 void verificarInicio(char* codon){
-    if((strcmp(codon,"ATG") == 0)&& condicao == 0 ){
+    if(strcmp(codon,"ATG") == 0 && condicao == 0 ){
         printf("\n INICIO\n");
         verificaAminoacido(codon);
         condicao = 1;
@@ -106,10 +111,24 @@ void verificarFim(char* codon){
     if((strcmp(codon,"TGA") == 0)||(strcmp(codon,"TAA") == 0)||(strcmp(codon,"TAG") == 0)){
         printf("FIM \n");
         condicao = 0;
+
     }
 }
 
+void trocarBase(char* vetor, int tamanho){
+    int x;
+    for(x = 0; x < tamanho; x++){
+        if(vetor[x] == 'G')
+            vetor[x] = 'C';
+        else if(vetor[x] == 'C')
+            vetor[x] ='G';
+        else if(vetor[x] == 'T')
+            vetor[x] = 'A';
+        else if(vetor[x] == 'A')
+            vetor[x] = 'T';
+    }
 
+}
 void verificaAminoacido(char* vetorBase){
 
     if(strcmp(vetorBase, "TTT") == 0 || strcmp(vetorBase, "TTC")== 0 ){

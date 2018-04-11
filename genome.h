@@ -8,5 +8,7 @@ void inverte(char* vetor,int tamanho);
 void verificaAminoacido(char* vetorBase);
 void verificarFim(char* codon);
 void percorrerString(char* string, int tamanho);
+void trocarBase(char* vetorbase, int tamanho);
+
 
 #endif

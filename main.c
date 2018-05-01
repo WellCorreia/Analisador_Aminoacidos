@@ -14,7 +14,7 @@ int main()
     int ordem = 1;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
-    char str[] = "Ola Mundo!";
+    int x =0;
 
     char url[]="Complete_Genome.txt";
 	char ch;
@@ -29,28 +29,52 @@ int main()
 	scanf("%d",&ordem);
 
 
-	tamanhoVetor = (finishGenome+3) - initGenome;
+	tamanhoVetor = ((finishGenome) - initGenome)+1;
     char vetorGenome[tamanhoVetor];
 
 	arq = fopen(url, "r");
 	if(arq == NULL){
 	    printf("Erro, nao foi possivel abrir o arquivo\n");
 	}else{
-	    while(ch != EOF && countInitGenome != finishGenome){
-            countInitGenome++;
+	    while(ch != EOF && countInitGenome <= finishGenome){
             ch = fgetc(arq);
 	    if(ch!='A' && ch!= 'T' && ch!= 'G' && ch!='C')countInitGenome--;
-            else if(countInitGenome >= initGenome){
+            else if(countInitGenome+1 >= initGenome){
+
                 vetorGenome[countPreencherVetor] = ch;
                 countPreencherVetor++;
             }
+         countInitGenome++;
 	    }
 	}
-
+    printf("\n");
+        system("pause");
+    for(x=0;x<tamanhoVetor;x++){
+            printf("%c",vetorGenome[x]);
+        }
+        printf("\n");
+        system("pause");
 
     if(ordem == 0){
-            inverte(vetorGenome, tamanhoVetor);
-            //trocarBase(vetorGenome, tamanhoVetor);
+
+        for(x=0;x<tamanhoVetor;x++){
+            printf("%c",vetorGenome[x]);
+        }
+        printf("\n");
+        system("pause");
+
+        inverte(vetorGenome, tamanhoVetor);
+        for(x=0;x<tamanhoVetor;x++){
+            printf("%c",vetorGenome[x]);
+        }
+        printf("\n");
+        system("pause");
+        trocarBase(vetorGenome, tamanhoVetor);
+        for(x=0;x<tamanhoVetor;x++){
+            printf("%c",vetorGenome[x]);
+        }
+        printf("\n");
+        system("pause");
     }
 
     percorrerString(vetorGenome,tamanhoVetor);

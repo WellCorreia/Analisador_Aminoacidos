@@ -4,6 +4,7 @@
 #include <locale.h>
 #include "genome.h"
 
+void percorrerEImprimir(char* vetorGenome, int tamanho);
 
 int main()
 {
@@ -14,7 +15,7 @@ int main()
     int ordem = 1;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
-    int x =0;
+    //int x =0;
 
     char url[]="Complete_Genome.txt";
 	char ch;
@@ -47,37 +48,14 @@ int main()
          countInitGenome++;
 	    }
 	}
-    printf("\n");
-        system("pause");
-    for(x=0;x<tamanhoVetor;x++){
-            printf("%c",vetorGenome[x]);
-        }
-        printf("\n");
-        system("pause");
 
     if(ordem == 0){
-
-        for(x=0;x<tamanhoVetor;x++){
-            printf("%c",vetorGenome[x]);
-        }
-        printf("\n");
-        system("pause");
-
         inverte(vetorGenome, tamanhoVetor);
-        for(x=0;x<tamanhoVetor;x++){
-            printf("%c",vetorGenome[x]);
-        }
-        printf("\n");
-        system("pause");
         trocarBase(vetorGenome, tamanhoVetor);
-        for(x=0;x<tamanhoVetor;x++){
-            printf("%c",vetorGenome[x]);
-        }
-        printf("\n");
-        system("pause");
     }
 
-    percorrerString(vetorGenome,tamanhoVetor);
+    //percorrerString(vetorGenome,tamanhoVetor);
+    percorrerEImprimir(vetorGenome, tamanhoVetor);
 
 	fclose(arq);
     return 0;
@@ -90,7 +68,17 @@ void imprimirString(char* string, int tamanho){
 	}
 }
 
-void percorrerString(char* string, int tamanho){
+void percorrerEImprimir(char* vetorGenome, int tamanho){
+    int x;
+    for(x=0; x<tamanho; x++){
+        if(x%3 == 0){
+            printf(" ");
+        }
+        printf("%c",vetorGenome[x]);
+    }
+}
+
+/*void percorrerString(char* string, int tamanho){
     int x, y=0;
     char codon[3];
 	for(x = 0; x < tamanho; x++){
@@ -107,7 +95,7 @@ void percorrerString(char* string, int tamanho){
 	    }
         y++;
 	}
-}
+}*/
 void inverte(char* vetor,int tamanho){
     int x,y;
     int aux;

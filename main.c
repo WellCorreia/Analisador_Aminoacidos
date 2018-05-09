@@ -5,7 +5,7 @@
 #include "genome.h"
 
 void percorrerEImprimir(char* vetorGenome, int tamanho);
-
+void verificaPromotor(char* vetorPromoter, int optimalDistance);
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -13,41 +13,43 @@ int main()
     int finishGenome = 25781;
     int countInitGenome = 0;
     int ordem = 1;
+    int optimalDistance = 30;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
     //int x =0;
 
     char url[]="Complete_Genome.txt";
-	char ch;
-	FILE *arq;
+    char ch;
+    FILE *arq;
 
 
-	printf("Digite o inicio do Genome:\n");
-	scanf("%d",&initGenome);
-	printf("Digite o fim do Genome:\n");
-	scanf("%d",&finishGenome);
-	printf("Digite 1 para positivo e 0 para negativo: \n");
-	scanf("%d",&ordem);
+    printf("Digite o inicio do Genome:\n");
+    scanf("%d",&initGenome);
+    printf("Digite o fim do Genome:\n");
+    scanf("%d",&finishGenome);
+    printf("Digite 1 para positivo e 0 para negativo: \n");
+    scanf("%d",&ordem);
 
 
-	tamanhoVetor = ((finishGenome) - initGenome)+1;
+    tamanhoVetor = ((finishGenome) - initGenome)+1;
     char vetorGenome[tamanhoVetor];
+    char vetorPromoter[optimalDistance];
 
-	arq = fopen(url, "r");
-	if(arq == NULL){
-	    printf("Erro, nao foi possivel abrir o arquivo\n");
-	}else{
-	    while(ch != EOF && countInitGenome <= finishGenome){
+    arq = fopen(url, "r");
+    if(arq == NULL){
+        printf("Erro, nao foi possivel abrir o arquivo\n");
+    }else{
+        while(ch != EOF && countInitGenome <= finishGenome){
             ch = fgetc(arq);
-	    if(ch!='A' && ch!= 'T' && ch!= 'G' && ch!='C')countInitGenome--;
+        if(ch!='A' && ch!= 'T' && ch!= 'G' && ch!='C')countInitGenome--;
             else if(countInitGenome+1 >= initGenome){
 
                 vetorGenome[countPreencherVetor] = ch;
                 countPreencherVetor++;
             }
          countInitGenome++;
-	    }
-	}
+        }
+    }
 
     if(ordem == 0){
         inverte(vetorGenome, tamanhoVetor);
@@ -56,16 +58,67 @@ int main()
 
     //percorrerString(vetorGenome,tamanhoVetor);
     percorrerEImprimir(vetorGenome, tamanhoVetor);
+    countPreencherVetor = 0;
+    countInitGenome = 0;
 
-	fclose(arq);
+    fclose(arq);
+    arq = fopen(url,"r");
+    if(arq == NULL){
+       printf("Erro, nao foi possivel abrir o arquivo\n");
+    }else{
+       while(ch != EOF && countInitGenome <= initGenome){
+            ch = fgetc(arq);
+
+        if(ch!='A' && ch!= 'T' && ch!= 'G' && ch!='C')countInitGenome--;
+            else if(countInitGenome+1 >= (initGenome-optimalDistance)){
+            vetorPromoter[countPreencherVetor] = ch;
+                    countPreencherVetor++;
+        }
+         countInitGenome++;
+        }
+    }
+    printf("\n\nPROMOTER:\n\n");
+    //percorrerEImprimir(vetorPromoter,optimalDistance);
+    verificaPromotor(vetorPromoter,optimalDistance);
+
     return 0;
+}
+
+void verificaPromotor(char* vetorPromoter, int optimalDistance){
+    int x;
+    char promotor[10];
+    char FinishPromotor[10];
+    int count =0;
+    int countFinish = 0;
+    for(x=0;x<optimalDistance;x++){
+        //printf("%c",vetorPromoter[x]);
+        if(vetorPromoter[x] == 'A' || vetorPromoter[x] =='T'){
+            promotor[count] = vetorPromoter[x];
+            count++;
+        }else{
+            if(countFinish==0){
+                    strcpy(FinishPromotor,promotor);
+                    countFinish = count;
+            }
+            if(count >= countFinish){
+                    strcpy(FinishPromotor,promotor);
+                    countFinish = count;
+            }
+            count = 0;
+        }
+    }
+    printf("\n\n TESTE: \n\n");
+        printf("Promotor: %s",FinishPromotor);
+
+
+
 }
 
 void imprimirString(char* string, int tamanho){
     int x;
-	for(x = 0; x < tamanho; x++){
+    for(x = 0; x < tamanho; x++){
         printf("%c", string[x]);
-	}
+    }
 }
 
 void percorrerEImprimir(char* vetorGenome, int tamanho){
@@ -81,20 +134,20 @@ void percorrerEImprimir(char* vetorGenome, int tamanho){
 /*void percorrerString(char* string, int tamanho){
     int x, y=0;
     char codon[3];
-	for(x = 0; x < tamanho; x++){
+    for(x = 0; x < tamanho; x++){
         if(y == 3){
             codon[y]= 0;
-	    printf("%s",codon);
+        printf("%s",codon);
             //verificarInicio(codon);
             y = 0;
         }
         if(string[x]=='\n'){
             y--;
-	    }else{
+        }else{
             codon[y] = string[x];
-	    }
+        }
         y++;
-	}
+    }
 }*/
 void inverte(char* vetor,int tamanho){
     int x,y;

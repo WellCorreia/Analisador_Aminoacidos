@@ -5,7 +5,7 @@
 #include "genome.h"
 
 void percorrerEImprimir(char* vetorGenome, int tamanho);
-void verificaPromotor(char* vetorPromoter, int optimalDistance);
+int verificaPromotor(char* vetorPromoter, int optimalDistance);
 int main()
 {
     setlocale(LC_ALL, "Portuguese");
@@ -16,6 +16,8 @@ int main()
     int optimalDistance = 30;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
+    int posicaoPromotor;
+    int posicaoCount;
     //int x =0;
 
     char url[]="Complete_Genome.txt";
@@ -79,17 +81,20 @@ int main()
     }
     printf("\n\nPROMOTER:\n\n");
     //percorrerEImprimir(vetorPromoter,optimalDistance);
-    verificaPromotor(vetorPromoter,optimalDistance);
+    posicaoCount = verificaPromotor(vetorPromoter,optimalDistance);
+    posicaoPromotor = initGenome - optimalDistance + posicaoCount;
 
+    printf("Posição do promotor: %d\n\n", posicaoPromotor);
     return 0;
 }
 
-void verificaPromotor(char* vetorPromoter, int optimalDistance){
+int verificaPromotor(char* vetorPromoter, int optimalDistance){
     int x;
     char promotor[10];
     char FinishPromotor[10];
     int count =0;
     int countFinish = 0;
+    int posicao = 0;
     for(x=0;x<optimalDistance;x++){
         //printf("%c",vetorPromoter[x]);
         if(vetorPromoter[x] == 'A' || vetorPromoter[x] =='T'){
@@ -101,6 +106,7 @@ void verificaPromotor(char* vetorPromoter, int optimalDistance){
                     countFinish = count;
             }
             if(count >= countFinish){
+                    posicao = x;
                     strcpy(FinishPromotor,promotor);
                     countFinish = count;
             }
@@ -108,9 +114,9 @@ void verificaPromotor(char* vetorPromoter, int optimalDistance){
         }
     }
     printf("\n\n TESTE: \n\n");
-        printf("Promotor: %s",FinishPromotor);
+        printf("Promotor: %s\n\n",FinishPromotor);
 
-
+    return posicao;
 
 }
 

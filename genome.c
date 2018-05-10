@@ -39,7 +39,7 @@ void buscarImprimirPromotorNegativo(char* vetorPromoter, int finishGenome, int o
     posicaoCount = verificaPromotor(vetorPromoter,optimalDistance);
     posicaoPromotor = finishGenome + optimalDistance - posicaoCount;
 
-    printf("\n\nPOSIÇÃO DO PROMOTOR: %d\n\n", posicaoPromotor);
+    printf("\n\nPOSICAO DO PROMOTOR: %d\n\n", posicaoPromotor);
 }
 void buscarImprimirPromotorPositivo(char* vetorPromoter, int initGenome, int optimalDistance){
     int countPreencherVetor = 0;
@@ -73,7 +73,7 @@ void buscarImprimirPromotorPositivo(char* vetorPromoter, int initGenome, int opt
     posicaoCount = verificaPromotor(vetorPromoter,optimalDistance);
     posicaoPromotor = initGenome - optimalDistance + posicaoCount;
 
-    printf("\n\nPOSIÇÃO DO PROMOTOR: %d\n\n", posicaoPromotor);
+    printf("\n\nPOSICAOO DO PROMOTOR: %d\n\n", posicaoPromotor);
 }
 int verificaPromotor(char* vetorPromoter, int optimalDistance){
     int x;
@@ -176,7 +176,7 @@ void verificaAminoacido(char* vetorBase){
     }else if(strcmp(vetorBase, "ATT")== 0 || strcmp(vetorBase, "ATC")== 0 || strcmp(vetorBase, "ATA")== 0){
         printf("Isoleucina (Ile)\n");
     }else if(strcmp(vetorBase, "ATG")== 0){
-        printf("\nMetionina (Met) - (Cordão de Iniciação)\n\n");
+        printf("\nMetionina (Met) - (Cordï¿½o de Iniciaï¿½ï¿½o)\n\n");
     }else if(strcmp(vetorBase, "GTT")== 0 || strcmp(vetorBase, "GTC")== 0 || strcmp(vetorBase, "GTA")== 0 || strcmp(vetorBase, "GTG")== 0 ){
         printf("Valina (Val)\n");
     }
@@ -209,13 +209,13 @@ void verificaAminoacido(char* vetorBase){
         printf("Lisia (Lis)\n");
     }
     else if(strcmp(vetorBase, "GAT")== 0 || strcmp(vetorBase, "GAC")== 0){
-        printf("Ácido Aspártico (Asp)\n");
+        printf("ï¿½cido Aspï¿½rtico (Asp)\n");
     }
     else if(strcmp(vetorBase, "GAA")== 0 || strcmp(vetorBase, "GAG")== 0){
-        printf("Ácido Glutâmico (Glu)\n");
+        printf("ï¿½cido Glutï¿½mico (Glu)\n");
     }
     else if(strcmp(vetorBase, "TGT")== 0 || strcmp(vetorBase, "TGC")== 0){
-        printf("Cisteína (Cis)\n");
+        printf("Cisteï¿½na (Cis)\n");
     }
     else if(strcmp(vetorBase, "TGG")== 0){
         printf("Triptofano (Trp)\n");
@@ -228,16 +228,17 @@ void verificaAminoacido(char* vetorBase){
         printf("Glicina (Gli)\n");
     }
     else if(strcmp(vetorBase, "TAA")== 0 || strcmp(vetorBase, "TAG")== 0 || strcmp(vetorBase, "TGA")== 0){
-        printf("\nCordão de Finalização\n\n");
+        printf("\nCordï¿½o de Finalizaï¿½ï¿½o\n\n");
     }
 }
 
-void restricts(int countPreencherVetor, char* restricTest, int initGenome, int finishGenome){
+void restricts(char* restric, int initGenome, int finishGenome){
     int contRestric = 0;
     int quantRestrics = 0;
     int RestricInit = 0;
     int RestricFinish = 0;
-    char restric[10];
+    int countPreencherVetor = 0;
+    char restricTest[6];
 
     FILE *arq;
     char url[]="Complete_Genome.txt";
@@ -245,6 +246,8 @@ void restricts(int countPreencherVetor, char* restricTest, int initGenome, int f
 
     arq = fopen(url,"r");
     countPreencherVetor = 0;
+
+
 
     if(arq == NULL){
        printf("Erro, nao foi possivel abrir o arquivo\n");
@@ -259,11 +262,13 @@ void restricts(int countPreencherVetor, char* restricTest, int initGenome, int f
             }
             if(contRestric==6){
                 contRestric = 0;
+                    printf("%s\n",restricTest);
+                    system("pause");
                 if(strcmp(restric,restricTest)==0){
                     quantRestrics ++;
-                    printf("\n Restrict nº:%d. Posicão:%d|%d \n",quantRestrics,RestricInit,RestricFinish);
+                    printf("\n Restrict n:%d. Posicao:%d|%d \n",quantRestrics,RestricInit,RestricFinish);
                     if(RestricInit <= initGenome && RestricFinish>=finishGenome){
-                        printf("Seu genoma esta presente no Restrict nº:%d",quantRestrics);
+                        printf("Seu genoma esta presente no Restrict no:%d",quantRestrics);
                     }
                     RestricInit = RestricFinish+1;
                     ch = fgetc(arq);

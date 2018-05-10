@@ -13,6 +13,6 @@ void percorrerEImprimir(char* vetorGenome, int tamanho);
 int verificaPromotor(char* vetorPromoter, int optimalDistance);
 void buscarImprimirPromotorPositivo(char* vetorPromoter, int initGenome, int optimalDistance);
 void buscarImprimirPromotorNegativo(char* vetorPromoter, int finishGenome, int optimalDistance);
-void restricts(int countPreencherVetor, char* restricTest, int initGenome, int finishGenome);
+void restricts(char* restric, int initGenome, int finishGenome);
 
 #endif

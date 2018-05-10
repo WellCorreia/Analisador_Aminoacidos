@@ -19,6 +19,8 @@ int main(){
     int RestricInit = 0;
     int RestricFinish = 0;
     int tamStringRest = 0;
+    int posicaoGenoma = 0;
+    int numBases = 0;
 
     //int x =0;
 
@@ -97,8 +99,10 @@ int main(){
                 if(strcmp(restric,restricTest)==0){
                     quantRestrics ++;
                     printf("\n Restrict n:%d. Posicao:%d|%d \n",quantRestrics,RestricInit,RestricFinish);
+                    numBases = RestricFinish;
                     if(RestricInit <= initGenome && RestricFinish>=finishGenome){
                         printf("Seu genoma esta presente no Restrict n:%d\n",quantRestrics);
+                        posicaoGenoma = quantRestrics;
                     }
                     RestricInit = RestricFinish+1;
                     ch = fgetc(arq);
@@ -111,6 +115,9 @@ int main(){
             }
 
         }
+        printf("\n    Numero de bases na sequencia: %d\n",numBases);
+        printf("    Numero de fragmentos de restricao: %d\n",quantRestrics);
+        printf("    O fragmento %d contem o gene em estudo\n",posicaoGenoma);
     }
     return 0;
 }

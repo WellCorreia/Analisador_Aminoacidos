@@ -9,6 +9,10 @@ void verificaAminoacido(char* vetorBase);
 void verificarFim(char* codon);
 void percorrerString(char* string, int tamanho);
 void trocarBase(char* vetorbase, int tamanho);
+void percorrerEImprimir(char* vetorGenome, int tamanho);
+int verificaPromotor(char* vetorPromoter, int optimalDistance);
+void buscarImprimirPromotorPositivo(char* vetorPromoter, int initGenome, int optimalDistance);
+void buscarImprimirPromotorNegativo(char* vetorPromoter, int finishGenome, int optimalDistance);
 
 
 #endif

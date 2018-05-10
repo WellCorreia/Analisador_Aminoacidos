@@ -231,3 +231,53 @@ void verificaAminoacido(char* vetorBase){
         printf("\nCordão de Finalização\n\n");
     }
 }
+
+void restricts(int countPreencherVetor, char* restricTest, int initGenome, int finishGenome){
+    int contRestric = 0;
+    int quantRestrics = 0;
+    int RestricInit = 0;
+    int RestricFinish = 0;
+    char restric[10];
+
+    FILE *arq;
+    char url[]="Complete_Genome.txt";
+    char ch;
+
+    arq = fopen(url,"r");
+    countPreencherVetor = 0;
+
+    if(arq == NULL){
+       printf("Erro, nao foi possivel abrir o arquivo\n");
+    }else{
+       while(ch != EOF){
+            ch = fgetc(arq);
+            if(ch=='A' || ch== 'T' || ch== 'G' || ch=='C'){
+                restricTest[contRestric] = ch;
+                contRestric++;
+                RestricFinish++;
+                countPreencherVetor++;
+            }
+            if(contRestric==6){
+                contRestric = 0;
+                if(strcmp(restric,restricTest)==0){
+                    quantRestrics ++;
+                    printf("\n Restrict nº:%d. Posicão:%d|%d \n",quantRestrics,RestricInit,RestricFinish);
+                    if(RestricInit <= initGenome && RestricFinish>=finishGenome){
+                        printf("Seu genoma esta presente no Restrict nº:%d",quantRestrics);
+                    }
+                    RestricInit = RestricFinish+1;
+                    ch = fgetc(arq);
+                    countPreencherVetor++;
+                }else{
+                    countPreencherVetor-=5;
+                    RestricFinish-=5;
+                    fseek(arq,countPreencherVetor,SEEK_SET);
+                }
+            }
+
+        }
+    }
+    fclose(arq);
+
+
+}

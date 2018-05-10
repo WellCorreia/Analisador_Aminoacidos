@@ -14,6 +14,7 @@ int main(){
     int optimalDistance = 30;
     int countPreencherVetor = 0;
     int tamanhoVetor = 0;
+    char restricTest[10];
     //int x =0;
 
     char url[]="Complete_Genome.txt";
@@ -61,5 +62,7 @@ int main(){
         buscarImprimirPromotorNegativo(vetorPromoter, finishGenome, optimalDistance);
     else
         buscarImprimirPromotorPositivo(vetorPromoter, initGenome, optimalDistance);
+
+    restricts(countPreencherVetor, restricTest, initGenome, finishGenome);
     return 0;
 }
